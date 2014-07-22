@@ -43,7 +43,15 @@
     for (NSString *key in self.categories.allKeys) {
         // printing count of each category!
         NSLog(@"category: %@. count: %i", key, [[self.categories objectForKey:key] count]);
+        
+        // earliest
+        NSLog(@"category: %@. earliest: %@", key, ((Violation *)[[self.categories objectForKey:key] firstObject]).violation_date);
+        
+        // latest
+        NSLog(@"category: %@. latest: %@", key, ((Violation *)[[self.categories objectForKey:key] lastObject]).violation_date);
     }
+    
+    
     
     // reload UI
     [self.tableView reloadData];
@@ -71,6 +79,7 @@
             self.violation.violation_category = field;
             break;
         case 3:
+            // TODO: input by date (NSDateFormatter)
             self.violation.violation_date = field;
             break;
         case 4:

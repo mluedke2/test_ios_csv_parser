@@ -13,7 +13,7 @@
 @property (nonatomic, retain) NSString *violation_id;
 @property (nonatomic, retain) NSString *inspection_id;
 @property (nonatomic, retain) NSString *violation_category;
-@property (nonatomic, retain) NSString *violation_date;
+@property (nonatomic, retain) NSDate *violation_date;
 @property (nonatomic, retain) NSString *violation_date_closed;
 @property (nonatomic, retain) NSString *violation_type;
 
