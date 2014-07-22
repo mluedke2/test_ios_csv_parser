@@ -8,12 +8,15 @@
 
 #import "ViewController.h"
 #import <CHCSVParser/CHCSVParser.h>
-#import <CHCSVParser.h>
+#import "Violation.h"
 
 @interface ViewController () <CHCSVParserDelegate>
 
-@property (nonatomic, retain) NSMutableArray *violation;
+@property (nonatomic, retain) Violation *violation;
 @property (nonatomic, retain) NSMutableArray *violations;
+
+@property (nonatomic, retain) NSMutableDictionary *categories;
+@property (nonatomic, retain) NSMutableArray *stats;
 
 @end
 
@@ -26,6 +29,8 @@
     [super viewDidLoad];
     
     self.violations = [NSMutableArray array];
+    self.categories = [NSMutableDictionary dictionary];
+    self.stats = [NSMutableArray array];
     
     // get CSV file
     NSError *err = nil;
@@ -33,29 +38,50 @@
     CHCSVParser *parser = [[CHCSVParser alloc] initWithCSVString:csvString];
     parser.delegate = self;
     [parser parse];
+    
+    // once parsed, sort and get the stats results!
+    for (NSString *key in self.categories.allKeys) {
+        // printing count of each category!
+        NSLog(@"category: %@. count: %i", key, [[self.categories objectForKey:key] count]);
+    }
+    
+    // reload UI
     [self.tableView reloadData];
 }
 
 # pragma mark CHCSVParserDelegate
 
-- (void) parser:(CHCSVParser *)parser didFailWithError:(NSError *)error {
-    NSLog(@"Parser failed with error: %@ %@", [error localizedDescription], [error userInfo]);
-}
-
-- (void) parser:(CHCSVParser *)parser didStartDocument:(NSString *)csvFile {
-    NSLog(@"Parser started!");
-}
-
 - (void) parser:(CHCSVParser *)parser didBeginLine:(NSUInteger)lineNumber
 {
     // make new object
-    self.violation = [NSMutableArray array];
+    self.violation = [Violation new];
 }
 
 - (void) parser:(CHCSVParser *)parser didReadField:(NSString *)field atIndex:(NSInteger)fieldIndex
 {
     // add to object
-    [self.violation addObject:field];
+    switch (fieldIndex) {
+        case 0:
+            self.violation.violation_id = field;
+            break;
+        case 1:
+            self.violation.inspection_id = field;
+            break;
+        case 2:
+            self.violation.violation_category = field;
+            break;
+        case 3:
+            self.violation.violation_date = field;
+            break;
+        case 4:
+            self.violation.violation_date_closed = field;
+            break;
+        case 5:
+            self.violation.violation_type = field;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void) parser:(CHCSVParser *)parser didEndLine:(NSUInteger)lineNumber
@@ -63,6 +89,15 @@
     // if not first, then add object to array
     if (lineNumber > 1) {
         [self.violations addObject:self.violation];
+        
+        // also sort by category
+        NSMutableArray *thisCategory = [self.categories objectForKey:self.violation.violation_category];
+        
+        if (!thisCategory) {
+            [self.categories setObject:[NSMutableArray arrayWithObject:self.violation] forKey:self.violation.violation_category];
+        } else {
+            [thisCategory addObject:self.violation];
+        }
     }
 }
 
@@ -83,10 +118,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier1];
     }
     
-    NSArray *currentViolation = [self.violations objectAtIndex:indexPath.row];
+    Violation *currentViolation = [self.violations objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [currentViolation objectAtIndex:2];
-    cell.detailTextLabel.text = [currentViolation objectAtIndex:5];
+    cell.textLabel.text = currentViolation.violation_category;
+    cell.detailTextLabel.text = currentViolation.violation_type;
     
     return cell;
 }

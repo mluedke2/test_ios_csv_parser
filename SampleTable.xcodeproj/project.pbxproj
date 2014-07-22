@@ -23,6 +23,7 @@
 		FA3DBA0B197E313200363576 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA3DBA09197E313200363576 /* InfoPlist.strings */; };
 		FA3DBA0D197E313200363576 /* SampleTableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3DBA0C197E313200363576 /* SampleTableTests.m */; };
 		FA3DBA17197E318500363576 /* Violations-2012.csv in Resources */ = {isa = PBXBuildFile; fileRef = FA3DBA16197E318500363576 /* Violations-2012.csv */; };
+		FA3DBA1D197E3E4E00363576 /* Violation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3DBA1C197E3E4E00363576 /* Violation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		FA3DBA0A197E313200363576 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA3DBA0C197E313200363576 /* SampleTableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleTableTests.m; sourceTree = "<group>"; };
 		FA3DBA16197E318500363576 /* Violations-2012.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Violations-2012.csv"; sourceTree = "<group>"; };
+		FA3DBA1B197E3E4E00363576 /* Violation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Violation.h; sourceTree = "<group>"; };
+		FA3DBA1C197E3E4E00363576 /* Violation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Violation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 				FA3DB9F7197E313200363576 /* ViewController.m */,
 				FA3DB9F9197E313200363576 /* Images.xcassets */,
 				FA3DB9E8197E313200363576 /* Supporting Files */,
+				FA3DBA1B197E3E4E00363576 /* Violation.h */,
+				FA3DBA1C197E3E4E00363576 /* Violation.m */,
 			);
 			path = SampleTable;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				FA3DB9F8197E313200363576 /* ViewController.m in Sources */,
 				FA3DB9F2197E313200363576 /* AppDelegate.m in Sources */,
 				FA3DB9EE197E313200363576 /* main.m in Sources */,
+				FA3DBA1D197E3E4E00363576 /* Violation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
